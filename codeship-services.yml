@@ -9,4 +9,8 @@ acsdeploy:
   - Dnsprefix=jdacs2
   volumes:
   - ./:/deploy
+azureappdeploy:
+  build:
+    image: alpine:latest
+    dockerfile_path: deployment/Dockerfilessh
 
