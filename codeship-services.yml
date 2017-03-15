@@ -10,7 +10,3 @@ acsdeploy:
   volumes:
   - ./:/deploy
 
-azureappdeploy:
-  build:
-    image: azuresdk/azure-cli-python:latest
-    dockerfile_path: deployment/Dockerfilessh
