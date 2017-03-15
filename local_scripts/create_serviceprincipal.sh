@@ -32,8 +32,7 @@ echo "tenant=$tenant"
 spn=http://$name
 
 # Copy service principal to environment variables file
-echo '# azure serivce principal auth
-spn='$spn'
+echo 'spn='$spn'
 password='$password'
 tenant='$tenant'
 ' > azure.env
