@@ -3,14 +3,15 @@ azuredeployment:
   cached: true
   encrypted_env_file: azure.env.encrypted
   environment:
-  - Resource=Codeship
+  - Resource=Codeshipaz2
   - Location=eastus
+  - Servicename=ACSJDDemo
+  - Orchestrator=Swarm
+  - Dnsprefix=jdacs2
   volumes:
   - ./:/deploy
 
 azureappdeploy:
   build:
-    image: alpine:latest
+    image: azuresdk/azure-cli-python:latest
     dockerfile_path: deployment/Dockerfilessh
-  encrypted_env_file: 
-  - vm.env.encrypted
