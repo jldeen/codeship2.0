@@ -1,5 +1,5 @@
-- name: Azure Docker Engine Deploy
-  service: azuredeployment
+- name: Azure ACS Deploy
+  service: acsdeploy
   command: bash /deploy/deployment/acs_deploy.sh
 - name: Azure Docker App Deploy
   service: azureappdeploy

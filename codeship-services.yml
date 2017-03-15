@@ -1,6 +1,5 @@
-azuredeployment:
+acsdeploy:
   image: azuresdk/azure-cli-python:latest
-  cached: true
   encrypted_env_file: azure.env.encrypted
   environment:
   - Resource=Codeshipaz2
