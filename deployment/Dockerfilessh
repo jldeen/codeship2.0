@@ -1,7 +1,7 @@
-FROM alpine:latest
+FROM azuresdk/azure-cli-python:latest
 MAINTAINER jessde@microsoft.com
 
-# Configure open ssh
+# Configure openssh and supervisor
 RUN apk update && apk add openssh supervisor
 
 # Copy app folder from repo to container
