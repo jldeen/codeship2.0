@@ -1,0 +1,16 @@
+azuredeployment:
+  image: azuresdk/azure-cli-python:latest
+  cached: true
+  encrypted_env_file: azure.env.encrypted
+  environment:
+  - Resource=Codeship
+  - Location=eastus
+  volumes:
+  - ./:/deploy
+
+azureappdeploy:
+  build:
+    image: alpine:latest
+    dockerfile_path: deployment/Dockerfilessh
+  encrypted_env_file: 
+  - vm.env.encrypted

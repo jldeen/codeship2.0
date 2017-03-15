@@ -1,0 +1,25 @@
+FROM alpine:latest
+MAINTAINER jessde@microsoft.com
+
+# Configure open ssh
+RUN apk update && apk add openssh supervisor
+
+# Copy app folder from repo to container
+COPY app ./app
+
+# Copy deployment scripts folder from repo to container
+COPY deployment ./deployment
+
+# Copy FQDN and private key
+COPY fqdn ./
+COPY id_rsa /root/.ssh/id_rsa
+
+RUN /usr/bin/ssh-add /root/.ssh/id_rsa
+
+RUN ssh -fNL 2375:localhost:2375 -p 2200 azureuser@$(cat fqdn)
+
+ENV DOCKER_HOST=:2375
+
+EXPOSE 2375
+
+CMD ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]   
