@@ -7,14 +7,20 @@
 name="$1"
 password="$2" 
 role="$3"
+
 # Login - Complete this process using a browser
-#azure login
+az login
 
 # Capture tenant ID
 tenant=$(az account show | jq -r '.tenantId')
 
 # Begin AD Service Principal Creation 
-az ad sp create-for-rbac -n $name --password $password --role $role
+az ad sp create-for-rbac \
+    -n $name \
+    --password \
+    $password \
+    --role $role \
+    --verbose
 
 # Output service principal
 echo "Successfully created Service Principal."
