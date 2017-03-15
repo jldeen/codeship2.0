@@ -18,7 +18,7 @@ echo "Created Resource Group:" $rgname
 # ACS Creation for Docker Swarm
 az acs create \
     -g $Resource \
-    -n $Dervicename \
+    -n $Servicename \
     -d $Dnsprefix \
     --orchestrator-type $Orchestrator \
     --generate-ssh-keys \
