@@ -38,3 +38,23 @@
 
 # Confirm FQDN is captured and print to screen
     echo "Your fully qualified domain name is $fqdn"
+# Outputs
+    # Code to capture ACS agents info
+        az acs show -n $Servicename -g $Resource | jq -r '.agentPoolProfiles[0].fqdn'
+        agents_fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.agentPoolProfiles[0].fqdn')
+
+    # Code to capture ACS master info
+        az acs show -n Servicename -g $Resource | jq -r '.masterProfile.fqdn'
+
+    # Set ssh connection string
+        master_fqdn=$(az acs show -n ACSJDDemo -g Codeshipaz2 | jq -r '.masterProfile.fqdn')
+        admin_username=$(az acs show -n ACSJDDemo -g Codeshipaz2 | jq -r '.linuxProfile.adminUsername')
+
+    # Print results 
+        echo "------------------------------------------------------------------"
+        echo "Important information"
+        echo "SSH Connection String: ssh $admin_username@$master_fqdn -A -p 2200"
+        echo "Master FQDN: $master_fqdn"
+        echo "Agents FQDN: $agents_fqdn"
+        echo "Your web applications can be viewed at $agents_fqdn."
+        echo "------------------------------------------------------------------"
