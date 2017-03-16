@@ -15,6 +15,7 @@ az group create \
     -n $Resource
 echo "Created Resource Group:" $rgname
 
+echo "Beginning Azure Container Service creation now. Please note this can take up to 10 minutes to complete."
 # ACS Creation for Docker Swarm
 az acs create \
     -g $Resource \
@@ -25,7 +26,7 @@ az acs create \
     --verbose
 
 # Grab the fully qualified domain name in an environment variable
-fqdn=$Dnsprefix.$Location.cloudapp.azure.com
+fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.masterProfile.fqdn')
 
 # Copy FQDN to host from container and to .gitignore
 echo $fqdn > /deploy/fqdn
