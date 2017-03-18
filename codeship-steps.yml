@@ -4,6 +4,3 @@
 - name: SSH Tunnel Build
   service: sshtunelbuild
   command: docker info
-# - name: Docker on ACS
-#   service: dockeronacs
-#   command: docker info
