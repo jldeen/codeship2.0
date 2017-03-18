@@ -30,7 +30,7 @@
     fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.masterProfile | .fqdn')
 
 # Copy FQDN to host from container and to .gitignore
-    echo $(az acs show -n $Servicename -g $Resource | jq -r '.masterProfile | .fqdn') > /deploy/fqdn
+    echo $fqdn
     echo fqdn >> /deploy/.gitignore
 
 # Copy Private Key to host from container and to .gitignore
@@ -39,17 +39,16 @@
 
 # Confirm FQDN is captured and print to screen
     echo "Your fully qualified domain name is $fqdn"
+
 # Outputs
     # Code to capture ACS agents info
-        az acs show -n $Servicename -g $Resource | jq -r '.agentPoolProfiles[0].fqdn'
         agents_fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.agentPoolProfiles[0].fqdn')
 
     # Code to capture ACS master info
-        az acs show -n $Servicename -g $Resource | jq -r jq -r '.masterProfile | .fqdn'
+        master_fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.masterProfile | .fqdn')
 
-    # Set ssh connection string
-        master_fqdn=$(az acs show -n ACSJDDemo -g Codeshipaz2 | jq -r '.masterProfile.fqdn')
-        admin_username=$(az acs show -n ACSJDDemo -g Codeshipaz2 | jq -r '.linuxProfile.adminUsername')
+    # Set ssh connection string addt'l info
+        admin_username=$(az acs show -n $Servicename -g $Resource | jq -r '.linuxProfile.adminUsername')
 
     # Print results 
         echo "------------------------------------------------------------------"
