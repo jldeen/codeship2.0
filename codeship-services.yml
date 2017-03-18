@@ -2,7 +2,7 @@ acsdeploy:
   image: azuresdk/azure-cli-python:latest
   encrypted_env_file: azure.env.encrypted
   environment:
-  - Resource=Codeshipaz
+  - Resource=Codeshipaz1
   - Location=eastus
   - Servicename=ACSJDDemo
   - Orchestrator=Swarm
