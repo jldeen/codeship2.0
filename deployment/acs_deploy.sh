@@ -29,8 +29,11 @@
 # Grab the fully qualified domain name in an environment variable
     fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.masterProfile | .fqdn')
 
+# Space for readabilty
+    echo
+
 # Copy FQDN to host from container and to .gitignore
-    echo $fqdn
+    echo $fqdn > /deploy/fqdn
     echo fqdn >> /deploy/.gitignore
 
 # Copy Private Key to host from container and to .gitignore
