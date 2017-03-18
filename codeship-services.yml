@@ -9,7 +9,7 @@ acsdeploy:
   - Dnsprefix=jdacs2
   volumes:
   - ./:/deploy
-sshtunelbuild:
+sshtunel:
   build:
     image: sshtunnel
     dockerfile_path: deployment/Dockerfilessh 
