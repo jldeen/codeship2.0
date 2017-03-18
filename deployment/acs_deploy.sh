@@ -26,10 +26,10 @@
         --verbose
 
 # Grab the fully qualified domain name in an environment variable
-    fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.masterProfile.fqdn')
+    fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.masterProfile | .fqdn')
 
 # Copy FQDN to host from container and to .gitignore
-    echo $fqdn > /deploy/fqdn
+    echo $(az acs show -n $Servicename -g $Resource | jq -r '.masterProfile | .fqdn') > /deploy/fqdn
     echo fqdn >> /deploy/.gitignore
 
 # Copy Private Key to host from container and to .gitignore
@@ -44,7 +44,7 @@
         agents_fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.agentPoolProfiles[0].fqdn')
 
     # Code to capture ACS master info
-        az acs show -n Servicename -g $Resource | jq -r '.masterProfile.fqdn'
+        az acs show -n $Servicename -g $Resource | jq -r jq -r '.masterProfile | .fqdn'
 
     # Set ssh connection string
         master_fqdn=$(az acs show -n ACSJDDemo -g Codeshipaz2 | jq -r '.masterProfile.fqdn')
