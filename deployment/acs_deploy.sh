@@ -15,7 +15,7 @@
         -n $Resource
     echo "Created Resource Group:" $rgname
 
-    echo "Beginning Azure Container Service creation now. Please note this can take up to 10 minutes to complete."
+    echo "Beginning Azure Container Service creation now. Please note this can take more than 10 minutes to complete."
 # ACS Creation for Docker Swarm
     az acs create \
         -g $Resource \
