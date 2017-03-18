@@ -30,4 +30,3 @@ COPY ssh-tunnel.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/ssh-tunnel.sh"]
 
 CMD ["bash"]
-
