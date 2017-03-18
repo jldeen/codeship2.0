@@ -2,15 +2,15 @@ acsdeploy:
   image: azuresdk/azure-cli-python:latest
   encrypted_env_file: azure.env.encrypted
   environment:
-  - Resource=Codeshipaz2
+  - Resource=Codeshipaz
   - Location=eastus
   - Servicename=ACSJDDemo
   - Orchestrator=Swarm
   - Dnsprefix=jdacs2
   volumes:
   - ./:/deploy
-azureappdeploy:
+sshtunelbuild:
   build:
-    image: alpine:latest
-    dockerfile_path: deployment/Dockerfilessh
+    image: sshtunnel
+    dockerfile_path: deployment/Dockerfilessh 
 
