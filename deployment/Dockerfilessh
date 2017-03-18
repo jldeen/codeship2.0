@@ -1,8 +1,5 @@
-FROM azuresdk/azure-cli-python:latest
+FROM jldeen/alpine-docker
 MAINTAINER jessde@microsoft.com
-
-# Configure openssh and supervisor
-RUN apk update && apk add openssh supervisor
 
 # Copy app folder from repo to container
 COPY app ./app
@@ -14,12 +11,23 @@ COPY deployment ./deployment
 COPY fqdn ./
 COPY id_rsa /root/.ssh/id_rsa
 
-RUN /usr/bin/ssh-add /root/.ssh/id_rsa
+# Turn SSH on and add private key to identities
 
-RUN ssh -fNL 2375:localhost:2375 -p 2200 azureuser@$(cat fqdn)
+RUN eval `ssh-agent -s` && /usr/bin/ssh-add /root/.ssh/id_rsa
 
+# Set DOCKER_HOST Env Variable
 ENV DOCKER_HOST=:2375
 
+# Confirm env var set properly - testing only
+RUN echo $DOCKER_HOST
+
+# Expose port for container
 EXPOSE 2375
 
-CMD ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]   
+COPY ssh-tunnel.sh /usr/local/bin/
+
+# Entrypoint for SSH tunnel
+ENTRYPOINT ["/usr/local/bin/ssh-tunnel.sh"]
+
+CMD ["bash"]
+
