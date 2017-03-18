@@ -8,7 +8,7 @@
         -u $spn \
         -p $password \
         --tenant $tenant \
-        - o table
+        -o table
 
 # Group creation
     az group create \
