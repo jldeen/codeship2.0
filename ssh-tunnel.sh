@@ -1,7 +1,9 @@
 #!/bin/sh
 # Create SSH Tunnel - Add on boot 
-
 set -e
+
+ssh -fNL 2375:localhost:2375 -p 2200 azureuser@$(cat fqdn) -o StrictHostKeyChecking=no -o ServerAliveInterval=240 
+# &>/dev/null
 
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
@@ -13,7 +15,5 @@ fi
 if docker help "$1" > /dev/null 2>&1; then
 	set -- docker "$@"
 fi
-
-ssh -fNL 2375:localhost:2375 -p 2200 azureuser@$(cat fqdn) -o StrictHostKeyChecking=no -o ServerAliveInterval=240 &>/dev/null
 
 exec "$@"
