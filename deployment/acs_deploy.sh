@@ -7,8 +7,7 @@
         --service-principal \
         -u $spn \
         -p $password \
-        --tenant $tenant \
-        -o table
+        --tenant $tenant
 
 # Group creation
     az group create \
