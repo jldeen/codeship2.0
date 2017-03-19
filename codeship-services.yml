@@ -13,6 +13,5 @@ sshtunel:
   build:
     image: sshtunnel
     dockerfile_path: deployment/Dockerfilessh
-docker:
-  image: sshtunnel
+    add_docker: true
 
