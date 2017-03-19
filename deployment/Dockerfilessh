@@ -25,7 +25,7 @@ EXPOSE 2375
 
 COPY ssh-tunnel.sh /usr/local/bin/
 
-# Entrypoint for SSH tunnel
-ENTRYPOINT ["/usr/local/bin/ssh-tunnel.sh"]
+RUN chmod +x /usr/local/bin/ssh-tunnel.sh
 
-CMD ["bash"]
+# Open SSH tunnel
+RUN /usr/local/bin/ssh-tunnel.sh
