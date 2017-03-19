@@ -3,6 +3,4 @@
   command: bash /deploy/deployment/acs_deploy.sh
 - name: SSH Tunnel
   service: sshtunel
-  command: docker info
-
-  # docker run -d --name docker-nginx -p 80:80 nginx
+  command: docker run -d --name docker-nginx -p 80:80 nginx
