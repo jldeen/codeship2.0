@@ -12,5 +12,7 @@ acsdeploy:
 sshtunel:
   build:
     image: sshtunnel
-    dockerfile_path: deployment/Dockerfilessh 
+    dockerfile_path: deployment/Dockerfilessh
+docker:
+  image: sshtunnel
 
