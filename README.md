@@ -18,7 +18,7 @@ Prior to getting started, please ensure you have the following installed in your
 - [Azure CLI](https://docs.microsoft.com/azure/xplat-cli-install)
 - [Git](https://git-scm.com/downloads)
 
-It is strongly recommended to fork this repo, or download the files separately. 
+It is strongly recommended to fork this repo, or download the files separately.
 
 #### You will need to connect your own repo to Codeship pro in order to use this Azure Deployment Demo.
 
@@ -83,7 +83,7 @@ Take a look at the [Steps](https://documentation.codeship.com/pro/getting-start
 
 The following script will deploy your new Azure Container Service environment with Docker Swarm as your orchestrator. The deployment script can access any files in your repository through /deploy. To confirm, the [Azure Deployment Script](deployment/acs_deploy.sh), stands an Azure Container Service resource group for Docker Swarm. 
 
-Disclaimer: It is always recommended to read any script thoroughly before executing it in your environment. These scripts are provided for demo purposes only. 
+Disclaimer: It is always recommended to read any script thoroughly before executing it in your environment. These scripts are provided for demo purposes only.
 
 By default, and unless otherwise instructed to with the appropriate switch, ACS provisions clusters with a single master and 3 agents. All of them use D2 by default, so it will be quite an expensive cluster, be careful and cleanup resources when you do not need them.
 
@@ -95,9 +95,9 @@ To interact with the ACS Docker Swarm instance you configured in the previous st
 sshtunelbuild:
   build:
     image: sshtunnel
-    dockerfile_path: deployment/Dockerfilessh 
+    dockerfile_path: deployment/Dockerfilessh
 ```
-To interact with the service, we will create a step that will execute the build of the image using the supplied [Dockerfile](deployment/Dockerfilessh). The Dockerfile will copy the repo's app folder so it can be used for build and deployment in the ACS Docker Swarm Cluster. From there, the Dockerfile will also establish an [SSH Tunnel](https://docs.microsoft.com/en-us/azure/container-service/container-service-connect) we can use to pass docker commands to build the image with our app. At the end of the app deployment, you will also see the website where your webapp can be viewed. 
+To interact with the service, we will create a step that will execute the build of the image using the supplied [Dockerfile](deployment/Dockerfilessh). The Dockerfile will copy the repo's app folder so it can be used for build and deployment in the ACS Docker Swarm Cluster. From there, the Dockerfile will also establish an [SSH Tunnel](https://docs.microsoft.com/en-us/azure/container-service/container-service-connect) we can use to pass docker commands to build the image with our app. At the end of the app deployment, you will also see the website where your webapp can be viewed.
 
 Note: The demo maps port 80:8080 for the node app running the container.
 
@@ -107,4 +107,3 @@ Disclaimer: It is always recommended to read any script thoroughly before execut
 
 - [Deploy a Docker container hosting solution using the Azure portal](https://docs.microsoft.com/en-us/azure/container-service/container-service-deployment)
 - [Deploy a Docker container hosting solution using the Azure CLI 2.0](https://docs.microsoft.com/en-us/azure/container-service/container-service-create-acs-cluster-cli)
- 

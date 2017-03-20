@@ -5,3 +5,5 @@ helpful commands.sh
 subscription.sh
 docker-entrypoint.sh
 Dockerfile
+fqdn
+id_rsa
