@@ -1,8 +1,10 @@
 - name: Azure ACS Deploy
   service: acsdeploy
   command: bash /deploy/deployment/acs_deploy.sh
-  tag: master
+  # tag: master
 - name: SSH Tunnel
   service: sshtunnel
   command: docker info
-  # tag: master
+  tag: master
+
+  # docker run -d --name docker-nginx -p 80:80 nginx
