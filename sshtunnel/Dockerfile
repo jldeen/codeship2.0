@@ -10,6 +10,7 @@ COPY deployment ./deployment
 # Copy FQDN and private key
 COPY fqdn ./
 COPY id_rsa /root/.ssh/id_rsa
+RUN chmod 400 /root/.ssh/id_rsa
 
 # Turn SSH on and add private key to identities
 RUN eval `ssh-agent -s` && /usr/bin/ssh-add /root/.ssh/id_rsa
