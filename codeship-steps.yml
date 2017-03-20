@@ -1,7 +1,7 @@
 - name: Azure ACS Deploy
   service: acsdeploy
   command: bash /deploy/deployment/acs_deploy.sh
-  tag: master
+  # tag: master
 - name: SSH Tunnel
   service: sshtunnel
   command: docker info
