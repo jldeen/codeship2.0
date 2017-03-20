@@ -30,4 +30,4 @@ RUN chmod +x /usr/local/bin/ssh-tunnel.sh
 # Open SSH tunnel
 ENTRYPOINT ["/usr/local/bin/ssh-tunnel.sh"]
 
-CMD docker info
+CMD ["sh"] 
