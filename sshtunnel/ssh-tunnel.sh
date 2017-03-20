@@ -28,8 +28,7 @@
       eval "$@" && exit 0
       n=$((n+1)) && echo "Docker daemon not ready. Trying $@ again..."
       sleep 5
-   done 
-wait	
+   done 	
 exec "$@" 
 
 # ssh output to nothing &>/dev/null
