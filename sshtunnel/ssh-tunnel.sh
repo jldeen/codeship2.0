@@ -1,8 +1,6 @@
 #!/bin/sh
 # Create SSH Tunnel - Add on boot 
-
 	echo "Opening SSH tunnel to ACS..."
-	# Creating 1st process for ssh
 		n=0
 		until [ $n -ge 5 ]
 		do
