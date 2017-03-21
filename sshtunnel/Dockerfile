@@ -4,11 +4,8 @@ MAINTAINER jessde@microsoft.com
 # Copy app folder from repo to container
 COPY app ./app
 
-# Copy deployment scripts folder from repo to container
-COPY deployment ./deployment
-
-# Copy FQDN and private key
-COPY fqdn ./
+# Copy FQDN, agents, and private key
+COPY fqdn agents ./
 COPY id_rsa /root/.ssh/id_rsa
 
 # Turn SSH on and add private key to identities
@@ -24,8 +21,10 @@ RUN echo $DOCKER_HOST
 EXPOSE 2375
 
 # Copy SSH Tunnel Script and make executable
-COPY ssh-tunnel.sh /usr/local/bin/
+COPY sshtunnel/ssh-tunnel.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/ssh-tunnel.sh
 
 # Open SSH tunnel
 ENTRYPOINT ["/usr/local/bin/ssh-tunnel.sh"]
+
+CMD ["sh"] 
