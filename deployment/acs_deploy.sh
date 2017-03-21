@@ -49,7 +49,8 @@
 
     # Print results 
         echo "------------------------------------------------------------------"
-        echo "Important information"
+        echo "Important information:"
+        echo 
         echo "SSH Connection String: ssh $admin_username@$master_fqdn -A -p 2200"
         echo "Master FQDN: $master_fqdn"
         echo "Agents FQDN: $agents_fqdn"
