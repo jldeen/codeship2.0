@@ -4,5 +4,10 @@
   # tag: master
 - name: SSH Tunnel
   service: sshtunnel
-  command: docker run -d --name docker-nginx -p 80:80 nginx
+  command: docker info
   # tag: master
+<<<<<<< HEAD
+=======
+
+  # docker run -d --name docker-nginx -p 80:80 nginx
+>>>>>>> 8dd6e97acadf50997ce00824001c962b44db3fad
