@@ -19,7 +19,6 @@
 	done 
 
 # Docker check if first arg is `-f` or `--some-option`
-	# if [ "${1#-}" != "$1" ]; then
 	if [ "${1:0:1}" = '-' ]; then
 		set -- docker "$@"
 	fi
@@ -32,17 +31,3 @@
 	echo "Reminder: Your web applications can be viewed here: $(cat agents)"
 	echo "Executing supplied $Orchestrator command: '$@'"
 	eval "$@" && echo "'$@' completed" 
-
-	# && echo "Supplied command successfully completed..." [ STOPPED HERE; FIGURE OUT HOW TO ECHO SUCCESS TO END USER]
-
-	## if [ "$Orchestrator" -eq "Swarm" ] then; 
-		#docker info | grep 'Nodes: [1-9]' &>/dev/null && echo "$Orchestrator cluster is ready..." && break
-	 # fi
-
-	## if [ "$Orchestrator" -eq "Kubernetes" ] then; 
-		#docker info | grep 'Nodes: [1-9]' &>/dev/null && echo "$Orchestrator cluster is ready..." && break
-	 # fi
-
-	## if [ "$Orchestrator" -eq "dcos" ] then; 
-		#docker info | grep 'Nodes: [1-9]' &>/dev/null && echo "$Orchestrator cluster is ready..." && break
-	 # fi
