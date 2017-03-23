@@ -17,6 +17,7 @@ Prior to getting started, please ensure you have the following installed in your
 - [Jet Codeship's CLI](https://documentation.codeship.com/pro/getting-started/installation/)
 - [Azure CLI](https://docs.microsoft.com/azure/xplat-cli-install)
 - [Git](https://git-scm.com/downloads)
+- JQ 1.5 or higher
 
 It is strongly recommended to fork this repo, or download the files separately.
 
@@ -48,16 +49,7 @@ You can get the spn, password, and tenant ID from running the [Service Princip
 
 It is higly recommended you  [click here](local_scripts/create_serviceprincipal.md) to learn how to use the service principal creation script.
 
-#### Virtual Machine Authentication
-
-You will also need to create an encrypted environment file for the credentials to your Azure Docker Virtual Machine you will setup in the next step. We have generated a script to help you get started. You can run the [VM Credential Creation Script](local_scripts/create_vm_creds.sh) and it will generate something similar to the following:
-
-```
-adminusername=username_here
-adminpassword=password_here
-```
-
-### Auzre Deployment Service Definition and Examples
+### Azure Container Service Deployment Examples
 
 Before reading through the documentation please take a look at the [Services](https://documentation.codeship.com/pro/getting-started/services/) and [Steps](https://documentation.codeship.com/pro/getting-started/steps/) documentation page so you have a good understanding how services and steps on Codeship work.
 
@@ -92,14 +84,39 @@ By default, and unless otherwise instructed to with the appropriate switch, ACS 
 To interact with the ACS Docker Swarm instance you configured in the previous step, we will now create a second service to connect to the Docker engine and pass the appropriate commands. An example of the code we use is as follows:
 
 ```
-sshtunelbuild:
+sshtunnel:
   build:
     image: sshtunnel
-    dockerfile_path: deployment/Dockerfilessh
+    dockerfile_path: sshtunnel/Dockerfile
+    add_docker: true
+  encrypted_env_file: azure.env.encrypted
+  environment: 
+  - Servicename=ACSJDDemo
+  - Resource=Codeshipaz
+  - Orchestrator=Swarm
+  - local_port=2375
+  - remote_port=2375
 ```
-To interact with the service, we will create a step that will execute the build of the image using the supplied [Dockerfile](deployment/Dockerfilessh). The Dockerfile will copy the repo's app folder so it can be used for build and deployment in the ACS Docker Swarm Cluster. From there, the Dockerfile will also establish an [SSH Tunnel](https://docs.microsoft.com/en-us/azure/container-service/container-service-connect) we can use to pass docker commands to build the image with our app. At the end of the app deployment, you will also see the website where your webapp can be viewed.
+To interact with the service, we will create a step that will execute the build of the image using the supplied [Dockerfile](sshtunnel/Dockerfile). The Dockerfile will copy the repo's app folder so it can be used for build and deployment in the ACS Docker Swarm Cluster. From there, the Dockerfile will also establish an [SSH Tunnel](https://docs.microsoft.com/en-us/azure/container-service/container-service-connect) we can use to pass docker commands to build the image with our app. At the end of the app deployment, you will also see the website where your webapp can be viewed. One example of our steps file to pass multiple docker commands is as follows:
+
+```
+- type: serial
+  name: SSH Tunnel
+  service: sshtunnel
+  steps:
+  - command: docker build -t acsapptest -f app/Dockerfile app
+  - command: docker run -d -p 80:8000 acsapptest
+  - command: docker ps
+```
 
 Note: The demo maps port 80:8080 for the node app running the container.
+
+Another example of our steps file to run a simple nginx webserver is as follows:
+```
+- name: SSH Tunnel
+  service: sshtunnel
+  command: docker run -d --name docker-nginx -p 80:80 nginx
+```
 
 Disclaimer: It is always recommended to read any script thoroughly before executing it in your environment. These scripts are provided for demo purposes only.
 
