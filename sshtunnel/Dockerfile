@@ -4,8 +4,7 @@ MAINTAINER jessde@microsoft.com
 # Copy app folder from repo to container
 COPY app ./app
 
-# Copy FQDN, agents, and private key
-COPY fqdn agents ./
+# Copy private key
 COPY id_rsa /root/.ssh/id_rsa
 
 # Turn SSH on and add private key to identities
