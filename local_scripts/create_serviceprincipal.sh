@@ -10,7 +10,7 @@
     read name
     echo "The name you entered is $name."
     echo "Enter a password for your SPN and press [ENTER]: "
-    read -s password
+    read -s password    
     echo "Enter a role for your SPN and press [ENTER]. The default role suggested is Contributor: "
     read role
     echo "The role you entered is $role."
@@ -21,6 +21,8 @@
     az login
 # Function for create_spn
     create_spn () {
+        echo
+        echo "Creating your SPN now..."
         # Capture tenant ID
         tenant=$(az account show | jq -r '.tenantId')
 
@@ -106,7 +108,7 @@
                 if [ $? -eq 0 ]
                     then
                         echo
-                        echo "Successfully set your subsription to $(az account list | jq -r --argjson v $menu_choice '.[$v] | .name')"
+                        echo "Successfully set your subscription to $(az account list | jq -r --argjson v $menu_choice '.[$v] | .name')"
                         create_spn
                         exit 0;
                 else
