@@ -14,7 +14,10 @@ sshtunnel:
     image: sshtunnel
     dockerfile_path: sshtunnel/Dockerfile
     add_docker: true
+  encrypted_env_file: azure.env.encrypted
   environment: 
+  - Servicename=ACSJDDemo
+  - Resource=Codeshipaz
   - Orchestrator=Swarm
   - local_port=2375
   - remote_port=2375

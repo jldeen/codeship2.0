@@ -12,7 +12,7 @@ In order to run the script, you need the following installed:
 
 - JET CLI
 - Azure CLI
-- JQ
+- JQ (1.5)
 
 ### Getting the key
 
@@ -35,10 +35,14 @@ echo "codeship.aes" >> .gitignore
 In order to login to Azure using a service principal, we use the following comand:
 
 ```
-azure login -u $spn -p $password --tenant $tenant --service-principal
+az login \
+        --service-principal \
+        -u $spn \
+        -p $password \
+        --tenant $tenant
 ```
 
-You can either pass the command through using the codeship-steps.yml file, or you can include it in a shell script. However, in order for it to work, you first need to create the service principal and store the variables in a file in your repository.
+You can either pass the command through using the codeship-steps.yml file under "command:", or you can include it in a shell script. However, in order for it to work, you first need to create the service principal and store the variables in a file in your repository.
 
 The file needs to contain an encrypted version of the following file:
 
@@ -59,28 +63,25 @@ The above example assumes you are in the root of your repo. You will want to adj
 
 Then run the script: 
 ```
-./create_serviceprincipal.sh id_name_here password_here role_here
+./create_serviceprincipal.sh
 ```
 or
 ```
-local_scripts/create_serviceprincipal.sh id_name_here password_here role_here
-```
-```
-### Description of positional parameters
-
-id_name_here - Name of Service Principal (for your reference only)
-password_here - Password for service principal created
-role_here - Desired role see [RBAC: Built-in roles](https://docs.microsoft.com/azure/active-directory/role-based-access-built-in-roles)
+local_scripts/create_serviceprincipal.sh
 ```
 
-Example:
+The script will prompt you for a name, password and role. A description of each is below: 
 
+### Description of prompts 
 ```
-./create_serviceprincipal.sh AzureDemo PasswOrd!! Contributor
+name - Name of Service Principal (for your reference only)
+password - Password for service principal created
+role - Desired role see [RBAC: Built-in roles](https://docs.microsoft.com/azure/active-directory/role-based-access-built-in-roles)
 ```
+
 NOTE: Your password needs to be a minimum of 12 characters and have some complexity incorporated to it. See more here: [Azure Password Policies](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-passwords-policy)
 
-The spn creation script will create a service principal for you and assign it the role of Contributor. The script will then encrypt the environment file containing the service principal, password, and tenant ID for your Azure subscription for you and add the unencrypted one to your .gitignore file.
+The script will check for multiple subscriptions on your account, if found, you will be asked to select which subscription you wish to use prior to proceeding. The spn creation script will create a service principal for you and assign it the role you designate. The script will then automatically encrypt the env file containing the service principal, password, and tenant ID for your Azure subscription; it will also add the unencrypted one to your .gitignore file. 
 
 The unencrypted environment file will be saved as azure.env.
 

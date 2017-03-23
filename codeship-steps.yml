@@ -2,7 +2,12 @@
   service: acsdeploy
   command: bash /deploy/deployment/acs_deploy.sh
   # tag: master
-- name: SSH Tunnel
+- type: serial
+  name: SSH Tunnel
   service: sshtunnel
-  command: docker run -d --name docker-nginx -p 80:80 nginx
+  steps:
+  - command: docker build -t acsapptest -f app/Dockerfile app
+  - command: docker images -a
+  - command: docker run -p 80:8000 -d acsapptest
+  - command: docker ps
   # tag: master

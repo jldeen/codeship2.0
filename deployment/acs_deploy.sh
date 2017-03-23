@@ -33,16 +33,11 @@
     echo id_rsa >> /deploy/.gitignore
 
 # Outputs
-    # Code to capture ACS master info, copy to host and to .gitignore
+    # Code to capture ACS master info
         master_fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.masterProfile | .fqdn')
-        # Copy FQDN to host from container and to .gitignore
-        echo $master_fqdn > /deploy/fqdn
-        echo fqdn >> /deploy/.gitignore
 
-    # Code to capture ACS agents info, copy to host and to .gitignore
+    # Code to capture ACS agents info
         agents_fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.agentPoolProfiles[0].fqdn')
-        echo $agents_fqdn > /deploy/agents
-        echo agents >> /deploy/.gitignore
 
     # Set ssh connection string addt'l info
         admin_username=$(az acs show -n $Servicename -g $Resource | jq -r '.linuxProfile.adminUsername')

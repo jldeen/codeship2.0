@@ -18,7 +18,7 @@
     echo "Thank you for your input. Now proceeding with SPN creation..."
 
 # Login - Complete this process using a browser
-    # az login
+    az login
 # Function for create_spn
     create_spn () {
         # Capture tenant ID
