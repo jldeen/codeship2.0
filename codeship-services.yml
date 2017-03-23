@@ -14,3 +14,7 @@ sshtunnel:
     image: sshtunnel
     dockerfile_path: sshtunnel/Dockerfile
     add_docker: true
+  environment: 
+  - Orchestrator=Swarm
+  - local_port=2375
+  - remote_port=2375

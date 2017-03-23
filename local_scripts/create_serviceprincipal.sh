@@ -1,15 +1,61 @@
 #!/bin/bash
 #
-# Run this script LOCALLY before any other script, run by typing ./serviceprincipal.sh id password role
+# Run this script LOCALLY before any other script, run by typing ./serviceprincipal.sh
 # To view the available roles, see https://docs.microsoft.com/azure/active-directory/role-based-access-built-in-roles Default recommended is Contributor, which can manage everything except access
 
-# Positional Parameters
-    name="$1"
-    password="$2" 
-    role="$3"
+# Read User Input to capture variables
+    echo "This script will create a Service Principal (SPN) for Azure."
+    echo
+    echo "Enter a name for your SPN and press [ENTER]: "
+    read name
+    echo "The name you entered is $name."
+    echo "Enter a password for your SPN and press [ENTER]: "
+    read -s password
+    echo "Enter a role for your SPN and press [ENTER]. The default role suggested is Contributor: "
+    read role
+    echo "The role you entered is $role."
+    echo 
+    echo "Thank you for your input. Now proceeding with SPN creation..."
 
 # Login - Complete this process using a browser
-    #az login
+    # az login
+# Function for create_spn
+    create_spn () {
+        # Capture tenant ID
+        tenant=$(az account show | jq -r '.tenantId')
+
+    # Begin AD Service Principal Creation 
+        az ad sp create-for-rbac \
+            -n $name \
+            --password $password \
+            --role $role \
+            --verbose
+
+    # Output service principal
+        echo "Successfully created Service Principal."
+        echo "==============Created Serivce Principal=============="
+        echo "spn=http://$name" 
+        echo "password=$password"
+        echo "tenant=$tenant"
+
+        spn=http://$name
+
+    # Copy service principal to environment variables file
+        echo 'spn='$spn'
+        password='$password'
+        tenant='$tenant'
+        ' > azure.env
+        echo "azure.env created"
+
+    # Add azure.env to .gitignore
+        echo "azure.env" >> .gitignore
+        echo "azure.env copied to .gitignore"
+
+    # Encrypt azure.env using CodeShip Jet
+        # jet encrypt [--key-path=codeship.aes] plain_file encrypted_file
+        jet encrypt azure.env azure.env.encrypted
+        echo "Successfully encrypted azure.env"
+        }
 
 # Azure Subscription Selection
     # Check for multiple subscriptions
@@ -17,7 +63,8 @@
     arrsize=$(az account list | jq '. | length')
     if [ "$arrsize" -eq "1" ]; then
         echo "You only have one subscription. Your SPN will be created in $(az account list | jq -r '.[] | .name')"
-        exit 0; 
+        create_spn 
+        exit 0;
     # Multiple subscriptions found, begin selection option. 
     else 
         echo "Multiple subscriptions found!"
@@ -60,6 +107,7 @@
                     then
                         echo
                         echo "Successfully set your subsription to $(az account list | jq -r --argjson v $menu_choice '.[$v] | .name')"
+                        create_spn
                         exit 0;
                 else
                     echo "Could not set your subscription. Please check your entry and try again." >&2
@@ -77,37 +125,3 @@
             esac
         done
         return 0;
-
-# Capture tenant ID
-    tenant=$(az account show | jq -r '.tenantId')
-
-# Begin AD Service Principal Creation 
-    az ad sp create-for-rbac \
-        -n $name \
-        --password $password \
-        --role $role \
-        --verbose
-
-# Output service principal
-    echo "Successfully created Service Principal."
-    echo "==============Created Serivce Principal=============="
-    echo "spn=http://$name" 
-    echo "password=$password"
-    echo "tenant=$tenant"
-
-    spn=http://$name
-
-# Copy service principal to environment variables file
-    echo 'spn='$spn'
-    password='$password'
-    tenant='$tenant'
-    ' > azure.env
-    echo "azure.env created"
-
-# Add azure.env to .gitignore
-    echo "azure.env" >> .gitignore
-    echo "azure.env copied to .gitignore"
-
-# Encrypt azure.env using CodeShip Jet
-    # jet encrypt [--key-path=codeship.aes] plain_file encrypted_file
-    jet encrypt azure.env azure.env.encrypted
