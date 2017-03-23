@@ -1,9 +1,6 @@
 FROM jldeen/alpine-docker
 MAINTAINER jessde@microsoft.com
 
-# Copy app folder from repo to container
-COPY app ./app
-
 # Copy private key
 COPY id_rsa /root/.ssh/id_rsa
 
