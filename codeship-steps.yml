@@ -7,6 +7,7 @@
   service: sshtunnel
   steps:
   - command: docker build -t acsapptest -f app/Dockerfile app
-  - command: docker run -d -p 80:8000 acsapptest
+  - command: docker images -a
+  - command: docker run -p 80:8000 -d acsapptest
   - command: docker ps
   # tag: master
