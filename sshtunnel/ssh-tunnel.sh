@@ -60,4 +60,5 @@
 		eval "$@" && echo "'$@' completed"  && break
 		n=$((n+1)) &>/dev/null && echo "Retrying '$@'in 5 seconds..."
 		sleep 5
-	done 
+	done
+	exit $? 
