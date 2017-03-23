@@ -51,6 +51,6 @@
 	fi
 # Out to end user and execute docker command
 	echo "Reminder: Your web applications can be viewed here: $agents_fqdn"
-	sleep 15
+	sleep 10
 	echo "Executing supplied $Orchestrator command: '$@'"
 	eval "$@" && echo "'$@' completed" 
