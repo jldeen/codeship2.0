@@ -35,7 +35,7 @@
 	n=0
 	until [ $n -ge 5 ]
 	do
-		docker info | grep 'Nodes: [1-9]' &>/dev/null && echo "$Orchestrator cluster is ready..." && break ## if docker Swarm
+		docker info | grep 'Nodes: [1-9]' &>/dev/null && echo "$Orchestrator cluster is ready..." && break
 		n=$((n+1)) &>/dev/null && echo "$Orchestrator cluster is not ready. Retrying in 45 seconds..."
 		sleep 45
 	done 
@@ -51,6 +51,13 @@
 	fi
 # Out to end user and execute docker command
 	echo "Reminder: Your web applications can be viewed here: $agents_fqdn"
-	sleep 10
+	sleep 5
 	echo "Executing supplied $Orchestrator command: '$@'"
-	eval "$@" && echo "'$@' completed" 
+	# Retry logic for executing command
+	n=0
+	until [ $n -ge 5 ]
+	do
+		eval "$@" && echo "'$@' completed"  && break
+		n=$((n+1)) &>/dev/null && echo "Retrying '$@'in 5 seconds..."
+		sleep 5
+	done 
