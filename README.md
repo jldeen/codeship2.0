@@ -109,7 +109,7 @@ To interact with the service, we will create a step that will execute the build 
   - command: docker ps
 ```
 
-Note: The demo maps port 80:8080 for the node app running the container.
+Note: The demo maps port 80:8000 for the node app running the container.
 
 Another example of our steps file to run a simple nginx webserver is as follows:
 ```
