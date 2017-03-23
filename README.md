@@ -97,22 +97,22 @@ sshtunnel:
   - local_port=2375
   - remote_port=2375
 ```
-To interact with the service, we will create a step that will execute the build of the image using the supplied [Dockerfile](sshtunnel/Dockerfile). The Dockerfile will copy the repo's app folder so it can be used for build and deployment in the ACS Docker Swarm Cluster. From there, the Dockerfile will also establish an [SSH Tunnel](https://docs.microsoft.com/en-us/azure/container-service/container-service-connect) we can use to pass docker commands to build the image with our app. At the end of the app deployment, you will also see the website where your webapp can be viewed. One example of our steps file to pass multiple docker commands is as follows:
+To interact with the service, we will create a step that will execute the build of the image using the supplied [Dockerfile](sshtunnel/Dockerfile). The Dockerfile will copy the private key generated in the first step so it can be used to establish the [SSH Tunnel](https://docs.microsoft.com/en-us/azure/container-service/container-service-connect) to the ACS Docker Swarm Cluster. We can then pass docker commands directly from our codeship-steps.yml file since our service is using the tunnel. At the end of each command execution, you will also see the website where your webapps can be viewed. One example of our steps file to pass multiple docker commands is as follows:
 
 ```
 - type: serial
   name: SSH Tunnel
   service: sshtunnel
   steps:
-    - command: docker build -t acsapptest -f app/Dockerfile app
-  - command: docker images -a
-  - command: docker run -p 80:8000 -d acsapptest
-  - command: docker ps
+  - command: docker run -d --name docker-nginx -p 80:80 nginx
+  - command: docker ps -a
+  - command: docker run -d --name node-demo -p 8080:8000 jldeen/node-demo
+  - command: docker ps -a
 ```
 
-Note: The demo maps port 80:8000 for the node app running the container.
+Note: The demo maps port 80:8000 for the node app running the container. For the second example, node-demo, we built our app and pushed to a public repo our swarm cluster can pull from.
 
-Another example of our steps file to run a simple nginx webserver is as follows:
+Another example of our steps file to run a simple nginx webserver, without serial steps, is as follows:
 ```
 - name: SSH Tunnel
   service: sshtunnel
