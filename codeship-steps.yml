@@ -1,6 +1,6 @@
 - name: Azure ACS Deploy
   service: acsdeploy
-  command: bash /deploy/deployment/acs_deploy.sh
+  command: bash /deploy/deployment/kubernetes/acs_deploy.sh
   # tag: master
 - type: serial
   name: SSH Tunnel
