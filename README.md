@@ -73,11 +73,11 @@ To interact with different Azure services you can simply call the Azure comman
 
 Take a look at the [Steps](https://documentation.codeship.com/pro/getting-started/steps/) documentation page so you have a good understanding how steps on Codeship work and how to set it up in your codeship-steps.yml.
 
-The following script will deploy your new Azure Container Service environment with Docker Swarm as your orchestrator. The deployment script can access any files in your repository through /deploy. To confirm, the [Azure Deployment Script](deployment/acs_deploy.sh), stands an Azure Container Service resource group for Docker Swarm. 
+The following script will deploy your new Azure Container Service environment with Docker Swarm as your orchestrator. The deployment script can access any files in your repository through /deploy. To confirm, the [Azure Deployment Script](deployment/acs_deploy.sh), stands up an Azure Container Service resource group for Docker Swarm. 
 
 Disclaimer: It is always recommended to read any script thoroughly before executing it in your environment. These scripts are provided for demo purposes only.
 
-By default, and unless otherwise instructed to with the appropriate switch, ACS provisions clusters with a single master and 3 agents. All of them use D2 by default, so it will be quite an expensive cluster, be careful and cleanup resources when you do not need them.
+#### By default, and unless otherwise instructed to with the appropriate switch, ACS provisions clusters with a single master and 3 agents. All of them use D2 by default, so it will be quite an expensive cluster, be careful and cleanup resources when you do not need them.
 
 ### Azure Docker App Deployment Service Definition and Examples
 
