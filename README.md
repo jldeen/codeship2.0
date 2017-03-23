@@ -104,8 +104,9 @@ To interact with the service, we will create a step that will execute the build 
   name: SSH Tunnel
   service: sshtunnel
   steps:
-  - command: docker build -t acsapptest -f app/Dockerfile app
-  - command: docker run -d -p 80:8000 acsapptest
+    - command: docker build -t acsapptest -f app/Dockerfile app
+  - command: docker images -a
+  - command: docker run -p 80:8000 -d acsapptest
   - command: docker ps
 ```
 
