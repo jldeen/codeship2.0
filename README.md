@@ -17,7 +17,7 @@ Prior to getting started, please ensure you have the following installed in your
 - [Jet Codeship's CLI](https://documentation.codeship.com/pro/getting-started/installation/)
 - [Azure CLI](https://docs.microsoft.com/azure/xplat-cli-install)
 - [Git](https://git-scm.com/downloads)
-- JQ 1.5 or higher
+- [JQ 1.5 or higher](https://stedolan.github.io/jq/)
 
 It is strongly recommended to fork this repo, or download the files separately.
 
