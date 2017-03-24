@@ -11,8 +11,8 @@ After you install the jet CLI, you will need to get your CodeShip AES key.
 In order to run the script, you need the following installed:
 
 - JET CLI
-- Azure CLI
-- JQ (1.5)
+- Azure CLI 2.0
+- JQ (1.5 or higher)
 
 ### Getting the key
 
@@ -73,11 +73,12 @@ local_scripts/create_serviceprincipal.sh
 The script will prompt you for a name, password and role. A description of each is below: 
 
 ### Description of prompts 
-```
-name - Name of Service Principal (for your reference only)
-password - Password for service principal created
-role - Desired role see [RBAC: Built-in roles](https://docs.microsoft.com/azure/active-directory/role-based-access-built-in-roles)
-```
+
+- name - Name of Service Principal (for your reference only)
+
+- password - Password for service principal created
+
+- role - Desired role see [RBAC: Built-in roles](https://docs.microsoft.com/azure/active-directory/role-based-access-built-in-roles)
 
 NOTE: Your password needs to be a minimum of 12 characters and have some complexity incorporated to it. See more here: [Azure Password Policies](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-passwords-policy)
 

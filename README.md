@@ -15,7 +15,7 @@ We will use the microsoft/azure-cli docker image throughout the documentation 
 Prior to getting started, please ensure you have the following installed in your local linux/unix environment.
 - [Docker](https://www.docker.com/products/overview) (Optional but highly recommended if you plan to test your codeship-steps and codeship-services.yml files locally)
 - [Jet Codeship's CLI](https://documentation.codeship.com/pro/getting-started/installation/)
-- [Azure CLI](https://docs.microsoft.com/azure/xplat-cli-install)
+- [Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 - [Git](https://git-scm.com/downloads)
 - [JQ 1.5 or higher](https://stedolan.github.io/jq/)
 
