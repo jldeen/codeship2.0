@@ -38,9 +38,6 @@
     # Code to capture ACS master info
         master_fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.masterProfile | .fqdn')
 
-    # Code to capture ACS agents info
-        agents_fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.agentPoolProfiles[0].fqdn')
-
     # Set ssh connection string addt'l info
         admin_username=$(az acs show -n $Servicename -g $Resource | jq -r '.linuxProfile.adminUsername')
 
@@ -50,6 +47,5 @@
         echo 
         echo "SSH Connection String: ssh $admin_username@$master_fqdn -A -p 2200"
         echo "Master FQDN: $master_fqdn"
-        echo "Agents FQDN: $agents_fqdn"
-        echo "Your web applications can be viewed at $agents_fqdn."
+        echo "Your web applications can be viewed at $master_fqdn."
         echo "------------------------------------------------------------------"

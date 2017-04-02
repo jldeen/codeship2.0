@@ -17,58 +17,7 @@
         master_fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.masterProfile | .fqdn')
         echo "Successfully captured your Master FQDN: $master_fqdn" 
 
-    # Code to capture ACS agents info
-        agents_fqdn=$(az acs show -n $Servicename -g $Resource | jq -r '.agentPoolProfiles[0].fqdn')
-        echo "Successfully captured your Agents FQDN: $agents_fqdn"
-
-# Do this if working with an Orchestrator type other than K8
-if [$Orchestrator -ne 'kubernetes']; then
-# Create SSH Tunnel and check to ensure tunnel is successfully created, if errors, try again up to 5 times
-	echo "Opening SSH tunnel to ACS..."
-		n=0
-		until [ $n -ge 5 ]
-		do
-			ssh -fNL $local_port:localhost:$remote_port -p 2200 azureuser@$master_fqdn -o StrictHostKeyChecking=no -o ServerAliveInterval=240 &>/dev/null && echo "ACS SSH Tunnel successfully opened..." && break
-			n=$((n+1)) &>/dev/null && echo "SSH tunnel is not ready. Retrying in 5 seconds..."
-			sleep 5
-		done 
-
-# Check for ACS Cluster Node availability, if errors, try again up to 5 times - only necessary if ACS Cluster was recently deployed
-	n=0
-	until [ $n -ge 5 ]
-	do
-		docker info | grep 'Nodes: [1-9]' &>/dev/null && echo "$Orchestrator cluster is ready..." && break
-		n=$((n+1)) &>/dev/null && echo "$Orchestrator cluster is not ready. Retrying in 45 seconds..."
-		sleep 45
-	done
-
-# Docker check if first arg is `-f` or `--some-option`
-	if [ "${1:0:1}" = '-' ]; then
-		set -- docker "$@"
-	fi
-
-# If our command is a valid Docker subcommand, invoke it through Docker instead - (this allows for "docker run docker ps", etc)
-	if docker help "$1" &>/dev/null; then
-		set -- docker "$@"
-	fi
-# Out to end user and execute docker command
-	echo "Reminder: Your web applications can be viewed here: $agents_fqdn"
-	sleep 5
-	echo "Executing supplied $Orchestrator command: '$@'"
-	# Retry logic for executing command
-	n=0
-	until [ $n -ge 5 ]
-	do
-		eval "$@" && echo "'$@' completed"  && break
-		n=$((n+1)) &>/dev/null && echo "Retrying '$@'in 5 seconds..."
-		sleep 5
-	done
-	exit $? 
-
-fi
-
 # Check if K8 and setup Kubectl
-	if [$Orchestrator -eq 'kubernetes']; then
-		az acs kubernetes install-cli
-		az acs kubernetes get-credentials --resource-group=$Resource --name=$Servicename
-	fi
+	az acs kubernetes install-cli
+	az acs kubernetes get-credentials --resource-group=$Resource --name=$Servicename
+	echo "Successfully installed Kubectl" 
