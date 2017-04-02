@@ -20,7 +20,7 @@ RUN echo $DOCKER_HOST
 EXPOSE 2375
 
 # Copy SSH Tunnel Script and make executable
-COPY sshtunnel/ssh-tunnel.sh /usr/local/bin/
+COPY sshtunnel/kubernetes/ssh-tunnel.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/ssh-tunnel.sh
 
 # Open SSH tunnel
