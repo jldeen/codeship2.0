@@ -22,6 +22,8 @@
         -n $Servicename \
         -d $Dnsprefix \
         --orchestrator-type $Orchestrator \
+        --service-principal $spn \
+        --client-secret $password \
         --generate-ssh-keys \
         --verbose
 

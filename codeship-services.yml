@@ -4,9 +4,9 @@ acsdeploy:
   environment:
   - Resource=Codeshipk8
   - Location=eastus
-  - Servicename=K8Demo
+  - Servicename=K8Demo1
   - Orchestrator=kubernetes
-  - Dnsprefix=k8acs007
+  - Dnsprefix=k8acs001
   volumes:
   - ./:/deploy
 sshtunnel:
@@ -16,7 +16,7 @@ sshtunnel:
     add_docker: true
   encrypted_env_file: azure.env.encrypted
   environment: 
-  - Servicename=K8Demo
+  - Servicename=K8Demo1
   - Resource=Codeshipk8
   - Orchestrator=kubernetes
   - local_port=2375
