@@ -21,3 +21,26 @@
 	az acs kubernetes install-cli
 	az acs kubernetes get-credentials --resource-group=$Resource --name=$Servicename
 	echo "Successfully installed Kubectl" 
+
+# kubectl check if first arg is `-f` or `--some-option`
+	if [ "${1:0:1}" = '-' ]; then
+		set -- kubectl "$@"
+	fi
+
+# If our command is a valid kubectl subcommand, invoke it through kubectl instead
+	if kubectl help "$1" &>/dev/null; then
+		set -- kubectl "$@"
+	fi
+# Out to end user and execute kubectl command
+	echo "Reminder: Your web applications can be viewed here: $master_fqdn"
+	sleep 5
+	echo "Executing supplied $Orchestrator command: '$@'"
+	# Retry logic for executing command
+	n=0
+	until [ $n -ge 5 ]
+	do
+		eval "$@" && echo "'$@' completed"  && break
+		n=$((n+1)) &>/dev/null && echo "Retrying '$@'in 5 seconds..."
+		sleep 5
+	done
+	exit $? 
