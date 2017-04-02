@@ -29,7 +29,7 @@
 
 # If our command is a valid kubectl subcommand, invoke it through kubectl instead
 	if kubectl help "$1" &>/dev/null; then
-		set -- kubectl "$@"
+		set -- "$@"
 	fi
 # Out to end user and execute kubectl command
 	echo "Reminder: Your web applications can be viewed here: $master_fqdn"
