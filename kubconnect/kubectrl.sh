@@ -18,9 +18,10 @@
         echo "Successfully captured your Master FQDN: $master_fqdn" 
 
 # Check if K8 and setup Kubectl
+	echo "Installing Kubectl..."
 	az acs kubernetes install-cli
 	az acs kubernetes get-credentials --resource-group=$Resource --name=$Servicename
-	echo "Successfully installed Kubectl" 
+	echo "Successfully installed Kubectl..." 
 
 # kubectl check if first arg is `-f` or `--some-option`
 	if [ "${1:0:1}" = '-' ]; then

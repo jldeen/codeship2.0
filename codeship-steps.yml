@@ -1,13 +1,10 @@
-- name: Azure ACS Deploy
-  service: acsdeploy
-  command: bash /deploy/deployment/acs_deploy.sh
+- name: Azure Kubernetes ACS Deploy
+  service: k8acsdeploy
+  command: bash /deploy/scripts/acs_deploy.sh
   # tag: master
 - type: serial
-  name: SSH Tunnel
-  service: sshtunnel
+  name: KubeCtrl
+  service: kubectl
   steps:
-  - command: docker build -t acsapptest -f app/Dockerfile app
-  - command: docker images -a
-  - command: docker run -p 80:8000 -d acsapptest
-  - command: docker ps
+  - command: kubectl get nodes
   # tag: master

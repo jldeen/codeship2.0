@@ -17,10 +17,10 @@ RUN echo $DOCKER_HOST
 EXPOSE 2375
 
 # Copy SSH Tunnel Script and make executable
-COPY sshtunnel/ssh-tunnel.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/ssh-tunnel.sh
+COPY kubconnect/kubectrl.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/kubectrl.sh
 
 # Open SSH tunnel
-ENTRYPOINT ["/usr/local/bin/ssh-tunnel.sh"]
+ENTRYPOINT ["/usr/local/bin/kubectrl.sh"]
 
 CMD ["sh"] 

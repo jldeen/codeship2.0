@@ -1,23 +1,21 @@
-acsdeploy:
+k8acsdeploy:
   image: azuresdk/azure-cli-python:latest
   encrypted_env_file: azure.env.encrypted
   environment:
-  - Resource=Codeshipaz
+  - Resource=Codeshipk8
   - Location=eastus
-  - Servicename=ACSJDDemo
-  - Orchestrator=Swarm
-  - Dnsprefix=jdacs2
+  - Servicename=K8Demo
+  - Orchestrator=kubernetes
+  - Dnsprefix=k8acs001
   volumes:
   - ./:/deploy
-sshtunnel:
+kubectl:
   build:
-    image: sshtunnel
-    dockerfile_path: sshtunnel/Dockerfile
+    image: kubectl
+    dockerfile_path: kubconnect/Dockerfile
     add_docker: true
   encrypted_env_file: azure.env.encrypted
   environment: 
-  - Servicename=ACSJDDemo
-  - Resource=Codeshipaz
-  - Orchestrator=Swarm
-  - local_port=2375
-  - remote_port=2375
+  - Servicename=K8Demo
+  - Resource=Codeshipk8
+  - Orchestrator=kubernetes
