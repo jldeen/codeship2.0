@@ -18,7 +18,13 @@ echo
 echo "Thank you for your input. Now proceeding with SPN creation..."
 
 # Login - Complete this process using a browser
-az login
+if az account show &>/dev/null; then
+                echo "You are already logged in to Azure..."
+        else
+                echo "Logging into Azure..."
+                        az login
+                echo "Successfully logged into Azure..."
+fi
 # Function for create_spn
 create_spn () {
 echo
