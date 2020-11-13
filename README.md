@@ -15,7 +15,7 @@ We will use the microsoft/azure-cli docker image throughout the documentation 
 Prior to getting started, please ensure you have the following installed in your local linux/unix environment.
 - [Docker](https://www.docker.com/products/overview) (Optional but highly recommended if you plan to test your codeship-steps and codeship-services.yml files locally)
 - [Jet Codeship's CLI](https://documentation.codeship.com/pro/getting-started/installation/)
-- [Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+- [Azure CLI 2.0](https://docs.microsoft.com/cli/azure/install-azure-cli?WT.mc_id=devops-0000-jessde)
 - [Git](https://git-scm.com/downloads)
 - [JQ 1.5 or higher](https://stedolan.github.io/jq/)
 
@@ -69,7 +69,7 @@ acsdeploy:
   - ./:/deploy
 ```
 
-To interact with different Azure services you can simply call the Azure command directly. You can use any Azure service or command provided by [Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli). You can use environment variables or command arguments to set the Azure Datacenter Location or other parameters. Take a look at the [command line reference for Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/) to get started.   
+To interact with different Azure services you can simply call the Azure command directly. You can use any Azure service or command provided by [Azure CLI 2.0](https://docs.microsoft.com/cli/azure/install-azure-cli?WT.mc_id=devops-0000-jessde). You can use environment variables or command arguments to set the Azure Datacenter Location or other parameters. Take a look at the [command line reference for Azure CLI 2.0](https://docs.microsoft.com/cli/azure/?WT.mc_id=devops-0000-jessde) to get started.   
 
 Take a look at the [Steps](https://documentation.codeship.com/pro/getting-started/steps/) documentation page so you have a good understanding how steps on Codeship work and how to set it up in your codeship-steps.yml.
 
@@ -97,7 +97,7 @@ sshtunnel:
   - local_port=2375
   - remote_port=2375
 ```
-To interact with the service, we will create a step that will execute the build of the image using the supplied [Dockerfile](sshtunnel/Dockerfile). The Dockerfile will copy the private key generated in the first step so it can be used to establish the [SSH Tunnel](https://docs.microsoft.com/en-us/azure/container-service/container-service-connect) to the ACS Docker Swarm Cluster. We can then pass docker commands directly from our codeship-steps.yml file since our service is using the tunnel. At the end of each command execution, you will also see the website where your webapps can be viewed. One example of our steps file to pass multiple docker commands is as follows:
+To interact with the service, we will create a step that will execute the build of the image using the supplied [Dockerfile](sshtunnel/Dockerfile). The Dockerfile will copy the private key generated in the first step so it can be used to establish the [SSH Tunnel](https://docs.microsoft.com/azure/container-service/container-service-connect?WT.mc_id=devops-0000-jessde) to the ACS Docker Swarm Cluster. We can then pass docker commands directly from our codeship-steps.yml file since our service is using the tunnel. At the end of each command execution, you will also see the website where your webapps can be viewed. One example of our steps file to pass multiple docker commands is as follows:
 
 ```
 - type: serial
@@ -123,5 +123,5 @@ Disclaimer: It is always recommended to read any script thoroughly before execut
 
 ### See also
 
-- [Deploy a Docker container hosting solution using the Azure portal](https://docs.microsoft.com/en-us/azure/container-service/container-service-deployment)
-- [Deploy a Docker container hosting solution using the Azure CLI 2.0](https://docs.microsoft.com/en-us/azure/container-service/container-service-create-acs-cluster-cli)
+- [Deploy a Docker container hosting solution using the Azure portal](https://docs.microsoft.com/azure/container-service/container-service-deployment?WT.mc_id=devops-0000-jessde)
+- [Deploy a Docker container hosting solution using the Azure CLI 2.0](https://docs.microsoft.com/azure/container-service/container-service-create-acs-cluster-cli?WT.mc_id=devops-0000-jessde)
